@@ -37,9 +37,10 @@ export interface UsageReport {
    * (2026-04-19). Earlier versions of this doc said "integer cents to
    * avoid floating-point drift" — that was backwards. A Haiku email
    * triage call runs ~0.03 cents; rounding to 0 hides the caller from
-   * `/guardrails` and `/costs` entirely. Any sub-cent precision drift
-   * on SUM() aggregates at NUMERIC storage is orders of magnitude
-   * smaller than what that rounding throws away.
+   * MC's budget-check and cost-reporting surfaces entirely. Any
+   * sub-cent precision drift on SUM() aggregates at NUMERIC storage
+   * is orders of magnitude smaller than what that rounding throws
+   * away.
    *
    * Callers should compute the raw fractional cost from the provider's
    * published rates and pass it straight through — no `Math.round` or

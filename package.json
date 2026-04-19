@@ -2,6 +2,7 @@
   "name": "@tcts-dev/platform-telemetry",
   "version": "0.1.0",
   "description": "Shared AI usage telemetry + budget check client for TCTS services. Services report AI API usage to Mission Control after each call, and optionally check budget before expensive calls.",
+  "private": true,
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "files": ["dist", "src"],
@@ -9,11 +10,7 @@
     "build": "tsc",
     "lint": "eslint src/",
     "test": "node --test --experimental-test-module-mocks --import=tsx src/**/*.test.ts",
-    "prepare": "npm run build",
-    "prepublishOnly": "npm run build"
-  },
-  "publishConfig": {
-    "registry": "https://npm.pkg.github.com"
+    "prepare": "npm run build"
   },
   "repository": {
     "type": "git",

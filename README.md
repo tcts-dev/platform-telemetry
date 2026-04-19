@@ -4,14 +4,19 @@ Shared client for TCTS services (Porter, Sawyer, Montgomery, TTS) to report AI u
 
 ## Install
 
-```
-npm install @tcts-dev/platform-telemetry
+Consumed via SHA-pinned `git+https://` in the consumer's `package.json`:
+
+```json
+"@tcts-dev/platform-telemetry": "git+https://github.com/tcts-dev/platform-telemetry.git#<commit-sha>"
 ```
 
-Requires a `.npmrc` in the consuming repo:
+Then:
+
+```bash
+npm install
 ```
-@tcts-dev:registry=https://npm.pkg.github.com
-```
+
+Bump the SHA in `package.json` to pick up a new version — `npm` caches git deps aggressively, so "upgrade on next install" won't work without a SHA change. See workspace `CLAUDE.md` → "Shared npm packages under @tcts-dev/*" for the full rationale.
 
 ## Usage
 
@@ -92,11 +97,10 @@ Tests mock `globalThis.fetch` — no real network traffic. `TCTS_MC_URL` and `TC
 
 ## Publishing
 
-Push to `main` → GitHub Actions builds, runs tests (TODO), and publishes to GitHub Packages. If the version in `package.json` already exists in the registry, the publish step is a no-op — bump the version to release.
+This package is **not published to any registry**. Services consume it by pinning a specific commit SHA in their `package.json` (see Install section above). To cut a release:
 
-Services consume the package by pinning a specific commit:
-```json
-"@tcts-dev/platform-telemetry": "git+https://github.com/tcts-dev/platform-telemetry.git#<commit-sha>"
-```
+1. Land changes on `main`.
+2. In each consumer, update the `"@tcts-dev/platform-telemetry"` entry to the new commit SHA.
+3. `npm install` in the consumer.
 
-Same pattern `@tcts-dev/entra-auth` uses.
+Same pattern `@tcts-dev/entra-auth` uses. `"private": true` in `package.json` prevents accidental `npm publish` to public npm.

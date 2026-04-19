@@ -9,7 +9,7 @@
   "scripts": {
     "build": "tsc",
     "lint": "eslint src/",
-    "test": "node --test --experimental-test-module-mocks --import=tsx src/**/*.test.ts",
+    "test": "node --test --experimental-test-module-mocks --import=tsx src/*.test.ts",
     "prepare": "npm run build"
   },
   "repository": {

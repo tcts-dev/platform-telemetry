@@ -7,7 +7,11 @@ Shared client for TCTS services (Porter, Sawyer, Montgomery, TTS) to report AI u
 Consumed via SHA-pinned `git+https://` in the consumer's `package.json`:
 
 ```json
-"@tcts-dev/platform-telemetry": "git+https://github.com/tcts-dev/platform-telemetry.git#<commit-sha>"
+{
+  "dependencies": {
+    "@tcts-dev/platform-telemetry": "git+https://github.com/tcts-dev/platform-telemetry.git#<commit-sha>"
+  }
+}
 ```
 
 Then:

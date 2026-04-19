@@ -31,7 +31,20 @@ export interface UsageReport {
   tokensOut: number;
   /**
    * Estimated cost in cents, based on published provider prices.
-   * Integer cents to avoid floating-point drift in the aggregator.
+   *
+   * Fractional cents ARE supported and encouraged — Mission Control's
+   * `api_usage_log.cost_cents` is `NUMERIC(14, 6)` since migration 005
+   * (2026-04-19). Earlier versions of this doc said "integer cents to
+   * avoid floating-point drift" — that was backwards. A Haiku email
+   * triage call runs ~0.03 cents; rounding to 0 hides the caller from
+   * MC's budget-check and cost-reporting surfaces entirely. Any
+   * sub-cent precision drift on SUM() aggregates at NUMERIC storage
+   * is orders of magnitude smaller than what that rounding throws
+   * away.
+   *
+   * Callers should compute the raw fractional cost from the provider's
+   * published rates and pass it straight through — no `Math.round` or
+   * `Math.ceil` before sending.
    */
   costCents: number;
   /** Wall-clock duration of the provider call, in milliseconds. */

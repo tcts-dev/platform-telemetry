@@ -16,6 +16,7 @@ Then:
 npm install
 ```
 
+> **Important:** because this package is consumed directly from `git+https://`, the install must be allowed to run the package's lifecycle scripts (including `prepare`) so the build artifacts are generated. Do **not** install with `--ignore-scripts`, and do not omit the build-time/dev dependencies needed for that step.
 Bump the SHA in `package.json` to pick up a new version — `npm` caches git deps aggressively, so "upgrade on next install" won't work without a SHA change. See workspace `CLAUDE.md` → "Shared npm packages under @tcts-dev/*" for the full rationale.
 
 ## Usage
